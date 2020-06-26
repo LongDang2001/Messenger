@@ -218,12 +218,12 @@ class RegisterViewController: UIViewController {
                 !email.isEmpty,
                 !password.isEmpty,
                 password.count >= 6  else {
+                alertUserLoginError()
                     
-                    alertUserLoginError()
-                    return }
+                return }
+            
             
             // Firebase Log In
-            
             DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in
                 guard let strongSelf = self else { return }
                 guard !exists else {
@@ -231,10 +231,10 @@ class RegisterViewController: UIViewController {
                     strongSelf.alertUserLoginError(message: "Looks like a user account for the email address already")
                     return
                 }
+                
                 // tạo email và tài khoản người dùng.
                 FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: {
                     // tạo clpsure có hai tham số đầu vào là authResult và error.
-                    [weak self]
                     authResult, error in
                     // nếu error có giá trị nil thì in ra
                     print("error user ")
@@ -262,7 +262,6 @@ class RegisterViewController: UIViewController {
                                           style: .cancel,
                                           handler: nil))
             
-            
             present(alear, animated: true, completion: nil)
             
         }
@@ -270,7 +269,6 @@ class RegisterViewController: UIViewController {
         
         // khi người dùng bấm vào nút đk, thì chuyển sang hàm này.
         @objc private func didTapRegister() {
-            
             let vc = RegisterViewController() // VC là chế độ xem đăng ký
             vc.title = "Create Account"
             navigationController?.pushViewController(vc, animated: true)
@@ -287,7 +285,6 @@ class RegisterViewController: UIViewController {
                 registerButtonTapped() // nhấn nút đăng nhập.
                 
             }
-            
             return true
         }
 }
@@ -324,7 +321,7 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func presentCamara() {
         let vc = UIImagePickerController()
-        vc.sourceType = .camera
+        vc.sourceType = .camera // cho người dùng chụp ảnh.
         vc.delegate = self
         vc.allowsEditing = true // Cho phép người dùng chỉnh sửa ảnh.
         present(vc, animated: true, completion: nil)

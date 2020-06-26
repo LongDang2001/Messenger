@@ -13,7 +13,7 @@ class ConversationsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+//        view.backgroundColor = .red
         
         
     }
@@ -30,7 +30,7 @@ class ConversationsViewController: UIViewController {
         if FirebaseAuth.Auth.auth().currentUser == nil {
             // tạo một cái view mặc định khi chạy app.
             let vc = LoginViewController()
-            var nav = UINavigationController(rootViewController: vc)
+            let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true, completion: nil)
         }

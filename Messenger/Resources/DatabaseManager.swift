@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseDatabase
+
 // final lớp này không được thực hiện để phân lớp, gọi là lớp cơ sở dữ liệu.
 
 final class DatabaseManager {
@@ -26,7 +27,11 @@ final class DatabaseManager {
 extension DatabaseManager {
     
     public func userExists(with email: String, completion: @escaping ((Bool) -> Void )) {
-        database.child(email).observeSingleEvent(of: .value, with: { snapshot in
+        // thay thế một số ký tự, phù hợp với việc đăng ký tài khoản.
+        var safeEmail = email.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        
+        database.child(safeEmail).observeSingleEvent(of: .value, with: { snapshot in
             guard snapshot.value as? String != nil else {
                 completion(false)
                 return
@@ -34,12 +39,11 @@ extension DatabaseManager {
             
             completion(true)
         })
-        
     }
     
     // chèn người dùng mới vào cơ sở dữ liệu.
     public func inserUser(with user: ChatAppUser) {
-        database.child(user.emailAddress).setValue([
+        database.child(user.safeEmail).setValue([
             "first_name": user.firstName,
             "last_name": user.lastname
             
@@ -51,5 +55,11 @@ struct ChatAppUser {
     let lastname: String
     let emailAddress: String
 //    let profirePictureUrl: String
+    
+    var safeEmail: String {
+        var safeEmail = emailAddress.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        return safeEmail
+    }
     
 }

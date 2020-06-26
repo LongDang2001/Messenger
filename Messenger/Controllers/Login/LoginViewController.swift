@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseAuth
+import FBSDKLoginKit
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
     
@@ -74,8 +76,31 @@ class LoginViewController: UIViewController {
         return imageView
     }()
 
+    // khai báo nút faceBook,kiểm tra email và định dạng email.
+    private let faceBookLoginButton: FBLoginButton = {
+        let button = FBLoginButton()
+        button.permissions = ["email, public_profile"]
+        
+        return button
+    }()
+    
+    private let googleLogInButton = GIDSignInButton()
+    private var loginObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // tạo ra người quan sát thông báo
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification,object: nil, queue: .main, using: {[weak self] _ in
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+        })
+        
+        // hiển thị nút đăng nhập google.
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        
         title = "Log In"
         view.backgroundColor = .white
         
@@ -92,7 +117,7 @@ class LoginViewController: UIViewController {
         // Khi người dùng nhấn đi nhấn lại giữa 2 văn bản,
         emailField.delegate = self
         passwordField.delegate = self
-        
+        faceBookLoginButton.delegate = self
         
         // Add Subview, dùng để hiển thị lên màn hình khi máy mở
         view.addSubview(scrollView)
@@ -100,7 +125,18 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
+        // làm nút đăng nhập vào bằng faceBook
+        scrollView.addSubview(faceBookLoginButton)
+        scrollView.addSubview(googleLogInButton)
     }
+    
+    deinit {
+        // hàm huỷ khởi tạo, dùng để giải phóng bộ nhớ.
+        if let obeserver = loginObserver {
+            NotificationCenter.default.removeObserver(obeserver)
+        }
+    }
+    
     // hàm thay đổi giao diện khi chưa hiển thị lên màn hình.
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -122,7 +158,18 @@ class LoginViewController: UIViewController {
                                    y: passwordField.bottom+10,
                                    width: scrollView.width-60,
                                    height: 52)
+        // Hiển thị nút faceBook trên màn hình.
+        faceBookLoginButton.frame = CGRect(x: 30,
+                                   y: loginButton.bottom+10,
+                                   width: scrollView.width-60,
+                                   height: 52)
+//        faceBookLoginButton.center = scrollView.center
+        faceBookLoginButton.frame.origin.y = loginButton.bottom+20
         
+        googleLogInButton.frame = CGRect(x: 30,
+                                    y: faceBookLoginButton.bottom+10,
+                                    width: scrollView.width-60,
+                                    height: 52)
     }
     
     //  sau khi người dùng đăng nhập xong,  xử lý việc đăng nhập đc hoàn thành
@@ -194,4 +241,75 @@ extension LoginViewController: UITextFieldDelegate {
         
         return true
     }
+}
+
+// tạo một chức năng cần thiết cho việc đăng nhập bằng faceBook.
+extension LoginViewController: LoginButtonDelegate {
+    // hàm nút đăng nhập đã đăng xuất.
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        // Không thực hiện.
+    }
+    
+    // hàm đăng nhập khi đã hoàn thành.
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        guard let token = result?.token?.tokenString else {
+            print("User failed to log in with faceBook")
+            return
+            
+        }
+        // yêu câu biểu đồ nhận email người dùng.
+        let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
+                                                         parameters: ["fields": "email, name"],
+                                                         tokenString: token ,
+                                                         version: nil,
+                                                         httpMethod: .get)
+        
+        facebookRequest.start(completionHandler: { _, result, error in
+            guard let result = result as? [String: Any], error == nil else {
+                print("Faild to make faceBook graph request")
+                return
+            }
+            print("\(result)")
+            guard let userName = result["name"] as? String,
+                let email = result["email"] as? String else {
+                    print("Faile to get name and email ")
+                    return
+            }
+            let nameComponents = userName.components(separatedBy: "")
+            guard nameComponents.count == 2 else {
+                return
+            }
+            let firstName = nameComponents[0]
+            let lastName = nameComponents[1]
+            
+            // sử dụng đối tượng quản lý cơ sở dữ liệu để kiểm tra email có tồn tại
+            DatabaseManager.shared.userExists(with: email, completion: { exists in
+                if !exists {
+                    DatabaseManager.shared.inserUser(with: ChatAppUser(firstName: firstName,
+                                                                       lastname: lastName,
+                                                                       emailAddress: email))
+                }
+            })
+        })
+        
+        // mã thông báo đến web trên faceBook, nhận thông tin xác thực
+        let credential = FacebookAuthProvider.credential(withAccessToken: token)
+        
+        // dùng để thông báo địa chỉ email trên fireBase khi người dùng đăng nhập bằng faceBook.
+        FirebaseAuth.Auth.auth().signIn(with: credential, completion: {[weak self] authResult, error in
+            guard let strongSelf = self else { return }
+            // kiểm tra điều kiện trên fireBase.
+            guard authResult != nil, error == nil else {
+                if let error = error {
+                    print("FaceBook credential login failed, neded \(error)")
+                    
+                }
+                return
+                
+            }
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            print("successfully logged ")
+        })
+    }
+    
 }
