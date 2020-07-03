@@ -8,9 +8,12 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class RegisterViewController: UIViewController {
 
+    private let spinner = JGProgressHUD(style: .dark)
+    
     private let scrollView: UIScrollView = {
             let scrollView = UIScrollView() // tạo closure
             scrollView.clipsToBounds = true
@@ -204,7 +207,7 @@ class RegisterViewController: UIViewController {
             // dùng để loại bỏ bàn phím cho cả hai trường hợp
             firstNameField.resignFirstResponder()
             lastNameField.resignFirstResponder()
-            emailField.resignFirstResponder()
+            emailField.resignFirstResponder() 
             passwordField.resignFirstResponder()
             
             
@@ -223,9 +226,16 @@ class RegisterViewController: UIViewController {
                 return }
             
             
+            spinner.show(in: view)
+            
+            
             // Firebase Log In
             DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in
                 guard let strongSelf = self else { return }
+                
+                DispatchQueue.main.async {
+                    strongSelf.spinner.dismiss()
+                }
                 guard !exists else {
                     // người dùng đã thoát.
                     strongSelf.alertUserLoginError(message: "Looks like a user account for the email address already")
@@ -243,10 +253,31 @@ class RegisterViewController: UIViewController {
                         return
                         
                     }
+                    let chatUser = ChatAppUser(firstName: firstName,
+                                               lastname: lastName,
+                                               emailAddress: email)
                     // tạo người dùng, ghi vào bộ nhớ kiểm soát người dùng.
-                    DatabaseManager.shared.inserUser(with: ChatAppUser(firstName: firstName,
-                                                                       lastname: lastName,
-                                                                       emailAddress: email))
+                    DatabaseManager.shared.inserUser(with: chatUser, completion: { success in
+                        if success {
+                            // upload user
+                            
+                            guard let image = strongSelf.imageView.image,
+                                let data = image.pngData() else {
+                                return
+                            }
+                            let filename = chatUser.profilePictureFileName
+                            StoregeManager.shared.uploadProfilePicture(with: data, fileName: filename, completion: { result in
+                                switch result {
+                                
+                                case .success(let dowloadUrl):
+                                    UserDefaults.standard.set(dowloadUrl, forKey: "profile_picture_url")
+                                    print(dowloadUrl)
+                                case .failure(let error):
+                                    print("Storage manager erroe: \(error)")
+                                }
+                            })
+                        }
+                    } )
                     strongSelf.navigationController?.dismiss(animated: true, completion: nil)
                 })
             })

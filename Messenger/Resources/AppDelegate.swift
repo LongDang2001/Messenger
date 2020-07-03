@@ -70,10 +70,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Kiểm tra trước khi đưa emai khi đăng nhập bằng google vào fireBase.
         DatabaseManager.shared.userExists(with: email, completion: { exists in
             if !exists {
+                
+                let chatUser =  ChatAppUser(firstName: firstName,
+                                            lastname: lastName,
+                                            emailAddress: email)
                 // chền đến cở dữ liệu nếu người dùng tôn tại.
-                DatabaseManager.shared.inserUser(with: ChatAppUser(firstName: firstName,
-                                                                   lastname: lastName,
-                                                                   emailAddress: email))
+                DatabaseManager.shared.inserUser(with: chatUser, completion: { success in
+                    if success {
+                        
+                        if user.profile.hasImage {
+                            guard let url = user.profile.imageURL(withDimension: 200) else {
+                                return
+                            }
+                            
+                            URLSession.shared.dataTask(with: url, completionHandler: { data, _, _ in
+                                guard let data = data else {
+                                    return
+                                }
+                                // upload image
+                                let filename = chatUser.profilePictureFileName
+                                StoregeManager.shared.uploadProfilePicture(with: data, fileName: filename, completion: { result in
+                                    switch result {
+                                    case .success(let dowloadUrl):
+                                        UserDefaults.standard.set(dowloadUrl, forKey: "profile_picture_url")
+                                        print(dowloadUrl)
+                                    case .failure(let error):
+                                        print("Storage manager erroe: \(error)")
+                                    }
+                                })
+                                }).resume()
+                        }
+                    }
+                })
             }
         })
         

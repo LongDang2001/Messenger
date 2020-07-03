@@ -42,12 +42,20 @@ extension DatabaseManager {
     }
     
     // chèn người dùng mới vào cơ sở dữ liệu.
-    public func inserUser(with user: ChatAppUser) {
+    public func inserUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void) {
         database.child(user.safeEmail).setValue([
             "first_name": user.firstName,
             "last_name": user.lastname
-            
-        ])
+            ], withCompletionBlock: { error , _ in
+                guard error == nil else {
+                    // được thiêt lập trên cơ sỏ dữ liệu tải hình ảnh khi chưa khởi tạo người dùng.
+                    print("failed write database")
+                    // thêm khối hoàn thành cho người dùng, khi viết xong vào sơ sở dữ liệu thì muốn tải lên.
+                    completion(false)
+                    return
+                }
+                completion(true)
+        })
     }
 }
 struct ChatAppUser {
@@ -61,5 +69,9 @@ struct ChatAppUser {
         safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
         return safeEmail
     }
-    
+    var profilePictureFileName: String {
+        // longphan752001@gmail.com
+        
+        return "\(safeEmail)_profile_picture.png"
+    }
 }

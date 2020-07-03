@@ -10,8 +10,10 @@ import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
+    private let spinner = JGProgressHUD(style: .dark)
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView() // tạo closure  
@@ -185,12 +187,20 @@ class LoginViewController: UIViewController {
                 alertUserLoginError()
                 return }
         
+        
+        spinner.show(in: view)
+        
         // Firebase Log In
         // vào phần đăng nhập người dùng.
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password, completion: {[weak self] // không tạo thêm chu kỳ dữ
             authResult, error in
             
             guard let strongSelf = self else { return }
+            
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss()
+            }
+            
             guard let result = authResult, error == nil else {
                 print("error user login ")
                 return
@@ -259,7 +269,7 @@ extension LoginViewController: LoginButtonDelegate {
         }
         // yêu câu biểu đồ nhận email người dùng.
         let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                         parameters: ["fields": "email, name"],
+                                                         parameters: ["fields": "email, first_name, last_name, picture.type(lager)"],
                                                          tokenString: token ,
                                                          version: nil,
                                                          httpMethod: .get)
@@ -270,24 +280,53 @@ extension LoginViewController: LoginButtonDelegate {
                 return
             }
             print("\(result)")
-            guard let userName = result["name"] as? String,
-                let email = result["email"] as? String else {
+            
+            guard let firstName = result["first_name"] as? String,
+                let lastName = result["last_name"] as? String,
+                let email = result["email"] as? String,
+                let picture = result["picture"] as? [String: Any],
+                let data = picture["data"] as? [String: Any],
+                let pictureUrl = data["url"] as? String
+                else {
                     print("Faile to get name and email ")
                     return
             }
-            let nameComponents = userName.components(separatedBy: "")
-            guard nameComponents.count == 2 else {
-                return
-            }
-            let firstName = nameComponents[0]
-            let lastName = nameComponents[1]
+            
             
             // sử dụng đối tượng quản lý cơ sở dữ liệu để kiểm tra email có tồn tại
             DatabaseManager.shared.userExists(with: email, completion: { exists in
                 if !exists {
-                    DatabaseManager.shared.inserUser(with: ChatAppUser(firstName: firstName,
-                                                                       lastname: lastName,
-                                                                       emailAddress: email))
+                    let chatUser = ChatAppUser(firstName: firstName,
+                                               lastname: lastName,
+                                               emailAddress: email)
+                    DatabaseManager.shared.inserUser(with: chatUser, completion: { success in
+                        if success {
+                            // upload image
+                            guard let url = URL(string: pictureUrl) else {
+                                return
+                            }
+                            print("Dowload data from faceBook image")
+                            
+                            URLSession.shared.dataTask(with: url, completionHandler: { data, _, _ in
+                                guard let data = data else {
+                                    print("Failed to get data from faceBook")
+                                    return
+                                }
+                                print("got data from fb, uploading ")
+                                
+                                 let filename = chatUser.profilePictureFileName
+                                StoregeManager.shared.uploadProfilePicture(with: data, fileName: filename, completion: { result in
+                                    switch result {
+                                    case .success(let dowloadUrl):
+                                        UserDefaults.standard.set(dowloadUrl, forKey: "profile_picture_url")
+                                        print(dowloadUrl)
+                                    case .failure(let error):
+                                        print("Storage manager erroe: \(error)")
+                                    }
+                                })
+                            }).resume()
+                        }
+                    })
                 }
             })
         })
