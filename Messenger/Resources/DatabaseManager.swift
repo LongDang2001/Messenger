@@ -7,20 +7,12 @@
 //
 
 import Foundation
-import FirebaseDatabase
-
-// final lớp này không được thực hiện để phân lớp, gọi là lớp cơ sở dữ liệu.
+import Firebase
 
 final class DatabaseManager {
-    
-    static let shared = DatabaseManager() // static là kiểu singgleton đc phép truy cập mọi nơi.
-    
+    static let shared = DatabaseManager() // static là kiểu singleton đc phép truy cập mọi nơi.
     private let database = Database.database().reference()
     
-    // cơ sở dữ liệu  hoạt động kiểu json, các khoá và dối tương của hàm child.
-    
-    
-   
 }
 // MARK: Account Manager
 
@@ -30,13 +22,12 @@ extension DatabaseManager {
         // thay thế một số ký tự, phù hợp với việc đăng ký tài khoản.
         var safeEmail = email.replacingOccurrences(of: ".", with: "-")
         safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
-        
         database.child(safeEmail).observeSingleEvent(of: .value, with: { snapshot in
             guard snapshot.value as? String != nil else {
                 completion(false)
                 return
             }
-            
+            print(snapshot.value)
             completion(true)
         })
     }
@@ -48,9 +39,7 @@ extension DatabaseManager {
             "last_name": user.lastname
             ], withCompletionBlock: { error , _ in
                 guard error == nil else {
-                    // được thiêt lập trên cơ sỏ dữ liệu tải hình ảnh khi chưa khởi tạo người dùng.
                     print("failed write database")
-                    // thêm khối hoàn thành cho người dùng, khi viết xong vào sơ sở dữ liệu thì muốn tải lên.
                     completion(false)
                     return
                 }
@@ -70,8 +59,6 @@ struct ChatAppUser {
         return safeEmail
     }
     var profilePictureFileName: String {
-        // longphan752001@gmail.com
-        
         return "\(safeEmail)_profile_picture.png"
     }
 }

@@ -18,12 +18,8 @@ struct Message: MessageType {
 }
 
 struct Sender: SenderType {
-    // hiển thị ảnh người gửi
     var photoURL: String
-    // id người gửi tin nhắn
     var senderId: String
-    
-    // tên hiển thị ngươì gửi
     var displayName: String
     
 }

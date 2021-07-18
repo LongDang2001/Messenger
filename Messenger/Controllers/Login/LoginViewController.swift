@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     private let spinner = JGProgressHUD(style: .dark)
     
     private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView() // tạo closure  
+        let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
         return scrollView
     }()
@@ -45,7 +45,7 @@ class LoginViewController: UIViewController {
         field.autocorrectionType = .no
         field.returnKeyType = .done // tự động đn khi người dùng bấm
         field.layer.cornerRadius = 12 // tạo đường viền cho textField
-        field.layer.borderWidth = 1 // Tạo đường border chiều   cho field
+        field.layer.borderWidth = 1 // Tạo đường border chiều cho field
         field.layer.borderColor = UIColor.link.cgColor // Tạo đường viền xanh
         field.placeholder = "Password..."
         
@@ -112,9 +112,7 @@ class LoginViewController: UIViewController {
                                                             action: #selector(didTapRegister))
         
         // Thêm mục tiêu khi hiển thị lên màn hình
-        loginButton.addTarget(self,
-                              action: #selector(loginButtonTapped),
-                              for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
         // Khi người dùng nhấn đi nhấn lại giữa 2 văn bản,
         emailField.delegate = self
@@ -122,12 +120,12 @@ class LoginViewController: UIViewController {
         faceBookLoginButton.delegate = self
         
         // Add Subview, dùng để hiển thị lên màn hình khi máy mở
+        
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
-        // làm nút đăng nhập vào bằng faceBook
         scrollView.addSubview(faceBookLoginButton)
         scrollView.addSubview(googleLogInButton)
     }
@@ -243,6 +241,7 @@ extension LoginViewController: UITextFieldDelegate {
     // hàm được gọi khi người dùng quay trở lại
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailField {
+            print(passwordField.text ?? "")
             passwordField.becomeFirstResponder() // trường pass ko đc thực hiện
         } else if textField == passwordField {
             loginButtonTapped() // nhấn nút đăng nhập.

@@ -103,8 +103,6 @@ class RegisterViewController: UIViewController {
             button.layer.cornerRadius = 12
             button.layer.masksToBounds = true
             button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-            
-            
             return button
         }()
         
@@ -323,7 +321,6 @@ class RegisterViewController: UIViewController {
 // Liên quan đến việc chọn ảnh trong thư viện.
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     // cho phép đc chọn ảnh
-
     func presentPhotoAcctionSheet() {
         let actionSheet = UIAlertController(title: "Profile Picture",
                                              message: "How would you like select a picture",

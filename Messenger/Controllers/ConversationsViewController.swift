@@ -13,7 +13,6 @@ import JGProgressHUD
 class ConversationsViewController: UIViewController {
 
     private let spinner = JGProgressHUD(style: .dark)
-    
     private let tableView: UITableView = {
         // khai báo tableView theo code, ko khai báo theo kiểu kéo outlet
         let table = UITableView()
