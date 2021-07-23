@@ -30,6 +30,11 @@
 		84C5505A26AB16460082DC6D /* RegisterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C5505826AB16460082DC6D /* RegisterController.xib */; };
 		84C5505E26AB17EE0082DC6D /* MessengerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5505C26AB17EE0082DC6D /* MessengerController.swift */; };
 		84C5505F26AB17EE0082DC6D /* MessengerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C5505D26AB17EE0082DC6D /* MessengerController.xib */; };
+		84C5506326AB201D0082DC6D /* FriendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5506126AB201D0082DC6D /* FriendController.swift */; };
+		84C5506426AB201D0082DC6D /* FriendController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C5506226AB201D0082DC6D /* FriendController.xib */; };
+		84C5506826AB203D0082DC6D /* PersonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5506626AB203D0082DC6D /* PersonController.swift */; };
+		84C5506926AB203D0082DC6D /* PersonController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C5506726AB203D0082DC6D /* PersonController.xib */; };
+		84C5506C26AB33EC0082DC6D /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5506B26AB33EC0082DC6D /* TabbarController.swift */; };
 		84FCE906249F341E009954CA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FCE905249F341E009954CA /* Extensions.swift */; };
 		ADDB2198F79C4EE31B1C976D /* Pods_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E50CA0A7AC16314075CA4 /* Pods_Messenger.framework */; };
 /* End PBXBuildFile section */
@@ -61,6 +66,11 @@
 		84C5505826AB16460082DC6D /* RegisterController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterController.xib; sourceTree = "<group>"; };
 		84C5505C26AB17EE0082DC6D /* MessengerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerController.swift; sourceTree = "<group>"; };
 		84C5505D26AB17EE0082DC6D /* MessengerController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessengerController.xib; sourceTree = "<group>"; };
+		84C5506126AB201D0082DC6D /* FriendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendController.swift; sourceTree = "<group>"; };
+		84C5506226AB201D0082DC6D /* FriendController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendController.xib; sourceTree = "<group>"; };
+		84C5506626AB203D0082DC6D /* PersonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonController.swift; sourceTree = "<group>"; };
+		84C5506726AB203D0082DC6D /* PersonController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonController.xib; sourceTree = "<group>"; };
+		84C5506B26AB33EC0082DC6D /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 		84FCE905249F341E009954CA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9A8EA396C004C3B6969030B2 /* Pods-Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.debug.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		C90E50CA0A7AC16314075CA4 /* Pods_Messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +193,9 @@
 		84C5505526AB16200082DC6D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				84C5506A26AB33D50082DC6D /* TabbarController */,
+				84C5506526AB20240082DC6D /* PersonController */,
+				84C5506026AB1FF60082DC6D /* FriendController */,
 				84C5505B26AB17CB0082DC6D /* MessengerController */,
 				84C5505626AB162C0082DC6D /* RegisterController */,
 				8438364A26A9C8D70090D85A /* LoginController */,
@@ -206,6 +219,32 @@
 				84C5505D26AB17EE0082DC6D /* MessengerController.xib */,
 			);
 			path = MessengerController;
+			sourceTree = "<group>";
+		};
+		84C5506026AB1FF60082DC6D /* FriendController */ = {
+			isa = PBXGroup;
+			children = (
+				84C5506126AB201D0082DC6D /* FriendController.swift */,
+				84C5506226AB201D0082DC6D /* FriendController.xib */,
+			);
+			path = FriendController;
+			sourceTree = "<group>";
+		};
+		84C5506526AB20240082DC6D /* PersonController */ = {
+			isa = PBXGroup;
+			children = (
+				84C5506626AB203D0082DC6D /* PersonController.swift */,
+				84C5506726AB203D0082DC6D /* PersonController.xib */,
+			);
+			path = PersonController;
+			sourceTree = "<group>";
+		};
+		84C5506A26AB33D50082DC6D /* TabbarController */ = {
+			isa = PBXGroup;
+			children = (
+				84C5506B26AB33EC0082DC6D /* TabbarController.swift */,
+			);
+			path = TabbarController;
 			sourceTree = "<group>";
 		};
 		D6B9C8FC24A0625EB662B686 /* Pods */ = {
@@ -287,8 +326,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8493CC03249E5C3D00BE5E06 /* LaunchScreen.storyboard in Resources */,
+				84C5506426AB201D0082DC6D /* FriendController.xib in Resources */,
 				849F66D724A0A3F5005E8E83 /* GoogleService-Info.plist in Resources */,
 				84C5505A26AB16460082DC6D /* RegisterController.xib in Resources */,
+				84C5506926AB203D0082DC6D /* PersonController.xib in Resources */,
 				8493CC00249E5C3D00BE5E06 /* Assets.xcassets in Resources */,
 				8438364E26A9C8EE0090D85A /* LoginController.xib in Resources */,
 				84C5505F26AB17EE0082DC6D /* MessengerController.xib in Resources */,
@@ -364,15 +405,18 @@
 			files = (
 				8493CC11249E639C00BE5E06 /* LoginViewController.swift in Sources */,
 				84653DA824A0FA2500D05E14 /* DatabaseManager.swift in Sources */,
+				84C5506826AB203D0082DC6D /* PersonController.swift in Sources */,
 				8493CC13249E63D400BE5E06 /* RegisterViewController.swift in Sources */,
 				8493CC19249E64BA00BE5E06 /* NewConversationViewController.swift in Sources */,
 				8493CBFB249E5C3B00BE5E06 /* ConversationsViewController.swift in Sources */,
 				8493CC17249E645600BE5E06 /* VideoPlayerViewController.swift in Sources */,
 				84FCE906249F341E009954CA /* Extensions.swift in Sources */,
+				84C5506326AB201D0082DC6D /* FriendController.swift in Sources */,
 				8493CBF7249E5C3B00BE5E06 /* AppDelegate.swift in Sources */,
 				8493CC1B249E64FD00BE5E06 /* ProfileViewController.swift in Sources */,
 				8493CBF9249E5C3B00BE5E06 /* SceneDelegate.swift in Sources */,
 				8439549D24AB462800EA9FA5 /* ChatViewController.swift in Sources */,
+				84C5506C26AB33EC0082DC6D /* TabbarController.swift in Sources */,
 				8493CC15249E642D00BE5E06 /* PhotoviewerViewController.swift in Sources */,
 				84C5505926AB16460082DC6D /* RegisterController.swift in Sources */,
 				8467382124ACD4E80046271E /* StorageManager.swift in Sources */,

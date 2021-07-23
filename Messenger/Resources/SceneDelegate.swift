@@ -7,15 +7,47 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
+    // let tabbarControllers = TabbarController()
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = LoginController()
+        
+        let messengerController = MessengerController()
+        messengerController.tabBarItem = UITabBarItem(title: "Tin nhắn", image: UIImage(named: "Group-3")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Vector (1)" )?.withRenderingMode(.alwaysOriginal))
+        
+        let friendController = FriendController()
+         friendController.tabBarItem = UITabBarItem(title: "Bạn bè", image: UIImage(named: "Group")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Group-2")?.withRenderingMode(.alwaysOriginal))
+        
+        let personController = PersonController()
+        personController.tabBarItem = UITabBarItem(title: "Trang cá nhân", image: UIImage(named: "Group (1)")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Group-1")?.withRenderingMode(.alwaysOriginal))
+        
+        
+        let tabbarController = UITabBarController()
+        
+        tabbarController.viewControllers = [
+            messengerController,
+            friendController,
+            personController
+        ]
+        
+        
+        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "Email") ?? "", password: UserDefaults.standard.string(forKey: "PassWord") ?? "") { (dataResuld, error) in
+            guard error == nil else {
+                window.rootViewController = LoginController()
+                return
+            }
+            window.rootViewController = tabbarController
+            print(dataResuld)
+        }
+        
         self.window = window
         window.makeKeyAndVisible()
     }

@@ -63,6 +63,7 @@ class LoginController: UIViewController {
     }
     
     func customPushNavi() {
+        
         let mesengerNavi = MessengerController()
         mesengerNavi.modalTransitionStyle = .crossDissolve
         mesengerNavi.modalPresentationStyle = .fullScreen

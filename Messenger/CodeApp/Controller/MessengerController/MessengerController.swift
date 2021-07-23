@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MessengerController: UIViewController {
 
@@ -14,6 +15,26 @@ class MessengerController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.yellow
         
+    }
+    
+    @IBAction func btLogout(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+            UserDefaults.standard.removeObject(forKey: "Email")
+            UserDefaults.standard.removeObject(forKey: "PassWord")
+            customPopLogin()
+            
+        } catch {
+            print(error)
+        }
+    }
+    
+    func customPopLogin() {
+        let loginNavi = LoginController()
+        loginNavi.modalTransitionStyle = .crossDissolve
+        loginNavi.modalPresentationStyle = .fullScreen
+
+        self.present(loginNavi, animated: true, completion: nil)
     }
 
 }

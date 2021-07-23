@@ -61,6 +61,10 @@ class RegisterController: UIViewController {
                 guard error == nil else {
                     return
                 }
+                
+                UserDefaults.standard.set(email, forKey: "Email")
+                UserDefaults.standard.set(passWord, forKey: "PassWord")
+                
                 self.pushUserOnDatabase()
                 self.customPushNavi()
                 
@@ -79,29 +83,21 @@ class RegisterController: UIViewController {
         
         func pushUserOnDatabase() {
             // MARK: PUSH DATA LEN SERVER
-            let userCurrent = Auth.auth().currentUser
             
             let ref: DatabaseReference!
-            
             ref = Database.database().reference()
+            guard let userCurrent = Auth.auth().currentUser else {
+                return
+            }
             
-            ref.child("users").setValue([
-                "key": ["string"],
-                "name": "aaaaaaa",
-                "bbbbb": "cccccc"
-            ], withCompletionBlock: { (error, referenc) in
-                
-            })
+            ref.child("users/\(userCurrent.uid)").updateChildValues(["email": txtEmail.text ?? ""])
+            ref.child("users/\(userCurrent.uid)").updateChildValues(["passWord": txtPassWord.text ?? ""])
+            ref.child("users/\(userCurrent.uid)").updateChildValues(["userName": txtName.text ?? ""])
+            ref.child("users/\(userCurrent.uid)").updateChildValues(["userPhone": userCurrent.phoneNumber ?? "defauld"])
+            ref.child("users/\(userCurrent.uid)").updateChildValues(["userStatus": "offline"])
+            ref.child("users/\(userCurrent.uid)").updateChildValues(["userId": userCurrent.uid])
+            ref.child("users/\(userCurrent.uid)").updateChildValues(["userImgUrl": userCurrent.photoURL ?? "defauld"])
             
-    //        ref.child("users").updateChildValues(["email": txtEmail.text ?? ""])
-    //        ref.child("users").updateChildValues(["passWord": txtPassWord.text ?? ""])
-    //
-    //        ref.child("users").updateChildValues(["userName": txtName.text ?? ""])
-    //        ref.child("users").updateChildValues(["userPhone": userCurrent?.phoneNumber ?? "defauld"])
-            
-    //        ref.child("users").child(userCurrent!.uid).updateChildValues(["userStatus": "offline"])
-    //        ref.child("users").child(userCurrent!.uid).updateChildValues(["userId": userCurrent?.uid ?? "defauld"])
-    //        ref.child("users").child(userCurrent!.uid).updateChildValues(["userImgUrl": userCurrent?.photoURL ?? "defauld"])
         }
         
         @IBAction func btActionDangNhap(_ sender: Any) {
