@@ -21,7 +21,7 @@ class RegisterController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        customRegister()
         
     }
     
@@ -57,6 +57,11 @@ class RegisterController: UIViewController {
             let email = txtEmail.text ?? ""
             let passWord = txtPassWord.text ?? ""
             
+            
+            guard (passWord.count > 8) == true else {
+                return
+            }
+            
             Auth.auth().createUser(withEmail: email, password: passWord) { (authDataResult, error) in
                 guard error == nil else {
                     return
@@ -72,12 +77,42 @@ class RegisterController: UIViewController {
             
         }
     
+//    // MARK: CHECK VALIST EMAIL
+//        func isValidEmail(_ email: String) -> Bool {
+//            let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+//
+//            let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+//            return emailPred.evaluate(with: email)
+//        }
+//
+//        func isValidPassWord(_ passWord: String) -> Bool {
+//            let passWordRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+//            let passWordPred = NSPredicate(format:"", passWordRegEx)
+//            return passWordPred.evaluate(with: passWord)
+//        }
+    
         func customPushNavi() {
-            let mesengerNavi = MessengerController()
-            mesengerNavi.modalTransitionStyle = .crossDissolve
-            mesengerNavi.modalPresentationStyle = .fullScreen
-
-            self.present(mesengerNavi, animated: true, completion: nil)
+            
+            let messengerController = MessengerController()
+            messengerController.tabBarItem = UITabBarItem(title: "Tin nhắn", image: UIImage(named: "Group-3")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Vector (1)" )?.withRenderingMode(.alwaysOriginal))
+            
+            let friendController = FriendController()
+             friendController.tabBarItem = UITabBarItem(title: "Bạn bè", image: UIImage(named: "Group")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Group-2")?.withRenderingMode(.alwaysOriginal))
+            
+            let personController = PersonController()
+            personController.tabBarItem = UITabBarItem(title: "Trang cá nhân", image: UIImage(named: "Group (1)")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Group-1")?.withRenderingMode(.alwaysOriginal))
+            
+            let tabbarController = UITabBarController()
+            tabbarController.viewControllers = [
+                messengerController,
+                friendController,
+                personController
+            ]
+            
+            let tabbarNavi = tabbarController
+            tabbarNavi.modalTransitionStyle = .crossDissolve
+            tabbarNavi.modalPresentationStyle = .fullScreen
+            self.present(tabbarNavi, animated: true, completion: nil)
             
         }
         

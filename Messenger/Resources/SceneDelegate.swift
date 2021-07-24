@@ -40,12 +40,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         
         Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "Email") ?? "", password: UserDefaults.standard.string(forKey: "PassWord") ?? "") { (dataResuld, error) in
+            
+            print(UserDefaults.standard.string(forKey: "Email") ?? "")
+            print(UserDefaults.standard.string(forKey: "PassWord") ?? "")
+            
             guard error == nil else {
                 window.rootViewController = LoginController()
                 return
             }
             window.rootViewController = tabbarController
-            print(dataResuld)
         }
         
         self.window = window

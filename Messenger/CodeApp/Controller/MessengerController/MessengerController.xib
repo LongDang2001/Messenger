@@ -16,24 +16,7 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcB-R2-r2N">
-                    <rect key="frame" x="120" y="742" width="174" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="OWh-R3-iF4"/>
-                    </constraints>
-                    <state key="normal" title="Button"/>
-                    <connections>
-                        <action selector="btLogout:" destination="-1" eventType="touchUpInside" id="XMd-yc-xtR"/>
-                    </connections>
-                </button>
-            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hcB-R2-r2N" secondAttribute="trailing" constant="120" id="DHh-p0-umE"/>
-                <constraint firstItem="hcB-R2-r2N" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="120" id="JGJ-Xt-k38"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="hcB-R2-r2N" secondAttribute="bottom" constant="60" id="x7a-Ug-GT0"/>
-            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="81.696428571428569"/>
         </view>

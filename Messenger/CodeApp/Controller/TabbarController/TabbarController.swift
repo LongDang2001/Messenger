@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class TabbarController {
+    static let shared = TabbarController()
+    let tabbarController = UITabBarController()
     
     func tabbarCustom() {
         let messengerController = MessengerController()
@@ -20,9 +22,6 @@ class TabbarController {
         
         let personController = PersonController()
         personController.tabBarItem = UITabBarItem(title: "Trang cá nhân", image: UIImage(named: "Group (1)")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Group-1")?.withRenderingMode(.alwaysOriginal))
-        
-        
-        let tabbarController = UITabBarController()
         
         tabbarController.viewControllers = [
             messengerController,

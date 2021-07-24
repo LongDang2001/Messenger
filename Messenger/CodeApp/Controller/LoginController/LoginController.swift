@@ -15,7 +15,7 @@ class LoginController: UIViewController {
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassWord: UITextField!
     @IBOutlet weak var btDangNhap: UIButton!
-    
+    let tabbarLocal = TabbarController.shared
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,8 +54,10 @@ class LoginController: UIViewController {
             guard error == nil else {
                 return
             }
+            UserDefaults.standard.set(email, forKey: "Email")
+            UserDefaults.standard.set(passWord, forKey: "PassWord")
+            
             self.customPushNavi()
-
 
         }
         
@@ -64,11 +66,27 @@ class LoginController: UIViewController {
     
     func customPushNavi() {
         
-        let mesengerNavi = MessengerController()
-        mesengerNavi.modalTransitionStyle = .crossDissolve
-        mesengerNavi.modalPresentationStyle = .fullScreen
+        let messengerController = MessengerController()
+        messengerController.tabBarItem = UITabBarItem(title: "Tin nhắn", image: UIImage(named: "Group-3")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Vector (1)" )?.withRenderingMode(.alwaysOriginal))
+        
+        let friendController = FriendController()
+         friendController.tabBarItem = UITabBarItem(title: "Bạn bè", image: UIImage(named: "Group")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Group-2")?.withRenderingMode(.alwaysOriginal))
+        
+        let personController = PersonController()
+        personController.tabBarItem = UITabBarItem(title: "Trang cá nhân", image: UIImage(named: "Group (1)")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Group-1")?.withRenderingMode(.alwaysOriginal))
+        
+        let tabbarController = UITabBarController()
+        tabbarController.viewControllers = [
+            messengerController,
+            friendController,
+            personController
+        ]
+        
+        let tabbarNavi = tabbarController
+        tabbarNavi.modalTransitionStyle = .crossDissolve
+        tabbarNavi.modalPresentationStyle = .fullScreen
 
-        self.present(mesengerNavi, animated: true, completion: nil)
+        self.present(tabbarNavi, animated: true, completion: nil)
         
     }
     
