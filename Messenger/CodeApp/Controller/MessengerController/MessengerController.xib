@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MessengerController" customModule="Messenger" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="m9F-7H-dtw" id="EOE-4C-5Wa"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,7 +17,23 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="m9F-7H-dtw">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="epr-kJ-6YN"/>
+                        <outlet property="delegate" destination="-1" id="6U3-hl-Kls"/>
+                    </connections>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="m9F-7H-dtw" secondAttribute="bottom" id="NGL-L5-FMF"/>
+                <constraint firstItem="m9F-7H-dtw" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="eHL-D3-eSb"/>
+                <constraint firstItem="m9F-7H-dtw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jxM-lD-EZg"/>
+                <constraint firstItem="m9F-7H-dtw" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="tPX-oJ-ha0"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="81.696428571428569"/>
         </view>

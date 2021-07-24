@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8404EA2F26ABBB1700C51BAE /* MessengerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404EA2D26ABBB1700C51BAE /* MessengerTableViewCell.swift */; };
+		8404EA3026ABBB1700C51BAE /* MessengerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8404EA2E26ABBB1700C51BAE /* MessengerTableViewCell.xib */; };
+		8429F64226AC196200BB2216 /* HeaderMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429F64126AC196200BB2216 /* HeaderMessenger.swift */; };
+		8429F64426AC197200BB2216 /* HeaderMessenger.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8429F64326AC197200BB2216 /* HeaderMessenger.xib */; };
 		8438364D26A9C8EE0090D85A /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8438364B26A9C8EE0090D85A /* LoginController.swift */; };
 		8438364E26A9C8EE0090D85A /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8438364C26A9C8EE0090D85A /* LoginController.xib */; };
 		8439549D24AB462800EA9FA5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439549C24AB462800EA9FA5 /* ChatViewController.swift */; };
@@ -41,6 +45,10 @@
 
 /* Begin PBXFileReference section */
 		46B0983330EB24445AC8798F /* Pods-Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.release.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.release.xcconfig"; sourceTree = "<group>"; };
+		8404EA2D26ABBB1700C51BAE /* MessengerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerTableViewCell.swift; sourceTree = "<group>"; };
+		8404EA2E26ABBB1700C51BAE /* MessengerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessengerTableViewCell.xib; sourceTree = "<group>"; };
+		8429F64126AC196200BB2216 /* HeaderMessenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderMessenger.swift; sourceTree = "<group>"; };
+		8429F64326AC197200BB2216 /* HeaderMessenger.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderMessenger.xib; sourceTree = "<group>"; };
 		8438364B26A9C8EE0090D85A /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		8438364C26A9C8EE0090D85A /* LoginController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginController.xib; sourceTree = "<group>"; };
 		8439549C24AB462800EA9FA5 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +96,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8404EA2C26ABBAF400C51BAE /* MessengerCell */ = {
+			isa = PBXGroup;
+			children = (
+				8404EA2D26ABBB1700C51BAE /* MessengerTableViewCell.swift */,
+				8404EA2E26ABBB1700C51BAE /* MessengerTableViewCell.xib */,
+				8429F64126AC196200BB2216 /* HeaderMessenger.swift */,
+				8429F64326AC197200BB2216 /* HeaderMessenger.xib */,
+			);
+			path = MessengerCell;
+			sourceTree = "<group>";
+		};
 		8416DFB9249F06DB00B2C13B /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +234,7 @@
 		84C5505B26AB17CB0082DC6D /* MessengerController */ = {
 			isa = PBXGroup;
 			children = (
+				8404EA2C26ABBAF400C51BAE /* MessengerCell */,
 				84C5505C26AB17EE0082DC6D /* MessengerController.swift */,
 				84C5505D26AB17EE0082DC6D /* MessengerController.xib */,
 			);
@@ -334,6 +354,8 @@
 				8438364E26A9C8EE0090D85A /* LoginController.xib in Resources */,
 				84C5505F26AB17EE0082DC6D /* MessengerController.xib in Resources */,
 				8493CBFE249E5C3B00BE5E06 /* Main.storyboard in Resources */,
+				8429F64426AC197200BB2216 /* HeaderMessenger.xib in Resources */,
+				8404EA3026ABBB1700C51BAE /* MessengerTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +427,8 @@
 			files = (
 				8493CC11249E639C00BE5E06 /* LoginViewController.swift in Sources */,
 				84653DA824A0FA2500D05E14 /* DatabaseManager.swift in Sources */,
+				8429F64226AC196200BB2216 /* HeaderMessenger.swift in Sources */,
+				8404EA2F26ABBB1700C51BAE /* MessengerTableViewCell.swift in Sources */,
 				84C5506826AB203D0082DC6D /* PersonController.swift in Sources */,
 				8493CC13249E63D400BE5E06 /* RegisterViewController.swift in Sources */,
 				8493CC19249E64BA00BE5E06 /* NewConversationViewController.swift in Sources */,
