@@ -13,6 +13,7 @@ class MessengerController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     var arrayFake: [String] = ["sdfs","fsdf","sfsd","dfdsf","fdsfs"]
+    let pushDataOnMessenger = PushDataOnMessenger()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +21,11 @@ class MessengerController: UIViewController {
         tableView.register(UINib(nibName: "MessengerTableViewCell", bundle: nil), forCellReuseIdentifier: "MessengerTableViewCellID")
         
         
-        
+        pushDataOnMessenger.pushDataOnfirebase()
     }
+    // Request to Firebase
+    
+    
     
     
 

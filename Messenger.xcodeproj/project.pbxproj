@@ -11,6 +11,7 @@
 		8404EA3026ABBB1700C51BAE /* MessengerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8404EA2E26ABBB1700C51BAE /* MessengerTableViewCell.xib */; };
 		8429F64226AC196200BB2216 /* HeaderMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429F64126AC196200BB2216 /* HeaderMessenger.swift */; };
 		8429F64426AC197200BB2216 /* HeaderMessenger.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8429F64326AC197200BB2216 /* HeaderMessenger.xib */; };
+		8429F64826AC624800BB2216 /* PushDataOnMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429F64726AC624800BB2216 /* PushDataOnMessenger.swift */; };
 		8438364D26A9C8EE0090D85A /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8438364B26A9C8EE0090D85A /* LoginController.swift */; };
 		8438364E26A9C8EE0090D85A /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8438364C26A9C8EE0090D85A /* LoginController.xib */; };
 		8439549D24AB462800EA9FA5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8439549C24AB462800EA9FA5 /* ChatViewController.swift */; };
@@ -49,6 +50,7 @@
 		8404EA2E26ABBB1700C51BAE /* MessengerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessengerTableViewCell.xib; sourceTree = "<group>"; };
 		8429F64126AC196200BB2216 /* HeaderMessenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderMessenger.swift; sourceTree = "<group>"; };
 		8429F64326AC197200BB2216 /* HeaderMessenger.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderMessenger.xib; sourceTree = "<group>"; };
+		8429F64726AC624800BB2216 /* PushDataOnMessenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDataOnMessenger.swift; sourceTree = "<group>"; };
 		8438364B26A9C8EE0090D85A /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		8438364C26A9C8EE0090D85A /* LoginController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginController.xib; sourceTree = "<group>"; };
 		8439549C24AB462800EA9FA5 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +118,22 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		8429F64526AC621900BB2216 /* ServerApi */ = {
+			isa = PBXGroup;
+			children = (
+				8429F64626AC622900BB2216 /* PushDataMessenger */,
+			);
+			path = ServerApi;
+			sourceTree = "<group>";
+		};
+		8429F64626AC622900BB2216 /* PushDataMessenger */ = {
+			isa = PBXGroup;
+			children = (
+				8429F64726AC624800BB2216 /* PushDataOnMessenger.swift */,
+			);
+			path = PushDataMessenger;
+			sourceTree = "<group>";
+		};
 		8438364826A9C8370090D85A /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +145,7 @@
 		8438364926A9C8C70090D85A /* CodeApp */ = {
 			isa = PBXGroup;
 			children = (
+				8429F64526AC621900BB2216 /* ServerApi */,
 				84C5505526AB16200082DC6D /* Controller */,
 				84C5505226AB154E0082DC6D /* Extension+Color */,
 			);
@@ -438,6 +457,7 @@
 				84C5506326AB201D0082DC6D /* FriendController.swift in Sources */,
 				8493CBF7249E5C3B00BE5E06 /* AppDelegate.swift in Sources */,
 				8493CC1B249E64FD00BE5E06 /* ProfileViewController.swift in Sources */,
+				8429F64826AC624800BB2216 /* PushDataOnMessenger.swift in Sources */,
 				8493CBF9249E5C3B00BE5E06 /* SceneDelegate.swift in Sources */,
 				8439549D24AB462800EA9FA5 /* ChatViewController.swift in Sources */,
 				84C5506C26AB33EC0082DC6D /* TabbarController.swift in Sources */,
