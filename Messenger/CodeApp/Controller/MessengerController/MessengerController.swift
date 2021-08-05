@@ -14,19 +14,25 @@ class MessengerController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var arrayFake: [String] = ["sdfs","fsdf","sfsd","dfdsf","fdsfs"]
     let pushDataOnMessenger = PushDataOnMessenger()
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // tableView.backgroundColor = UIColor(rgb: 0xff4356B4)
         tableView.register(UINib(nibName: "MessengerTableViewCell", bundle: nil), forCellReuseIdentifier: "MessengerTableViewCellID")
         
+       
         
-        pushDataOnMessenger.pushDataOnfirebase()
     }
     // Request to Firebase
     
     
-    
+//    func requestChatRoom() {
+//        requestToChatRoom.requestFirebase(completionHandle: { (data) in
+//
+//        })
+//
+//    }
     
 
 }

@@ -42,19 +42,16 @@ class PushDataOnMessenger {
         formaterTimeLong.timeStyle = .long
         formaterTimeLong.timeZone = .current
        
-        
-        let time = Timer()
-        
         let dataPush: [String: Any] = [
             "date" : formaterDate.string(from: date),
             "idReceiver": currentUser.uid,
-            "idSender": "zx0rZGSPnFYhAQy6MUIWUXbrMfa2",
-            "messenger": " Hôm nay trời đẹp thế nhờ",
+            "idSender": "Cu9voYXhDWePljWo0bNHUfb8bfo1",
+            "messenger": "Đúng là con trai của ta",
             "time": formaterTime.string(from: date),
             "timeLong": formaterTimeLong.string(from: date),
         ]
         
-        ref.child("chats").child((currentUser.uid) + "zx0rZGSPnFYhAQy6MUIWUXbrMfa2").childByAutoId().updateChildValues(dataPush, withCompletionBlock: { (error, data) in
+        ref.child("chats").child((currentUser.uid) + "Cu9voYXhDWePljWo0bNHUfb8bfo1").childByAutoId().updateChildValues(dataPush, withCompletionBlock: { (error, data) in
             
             guard error == nil else {
                 return
